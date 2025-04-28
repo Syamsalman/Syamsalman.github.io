@@ -1,0 +1,70 @@
+body {
+  background-size: 350px;
+  background-color: #f1ecf3;
+}
+.jodoh {
+  background-color: #ffe6e6;
+  border: 1px solid #f85c5c;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.foto {
+  background-image: url(./image/bacground2.jpg);
+  background-position: -38px 0;
+  background-size: cover;
+}
+.title-heartconnect {
+  font-family: "Oleo Script Swash Caps";
+  font-size: 70px;
+  /* background: linear-gradient(to right, #ff00cc, #3333ff); */
+  background: linear-gradient(#4581f4, #f63385);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.zodiak {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #c99fa3;
+}
+
+.tb2 li {
+  font-size: small;
+  padding-bottom: 11px;
+}
+
+.header-card {
+  background-color: #f7bdbd;
+  padding: 21px;
+}
+.header-card h4 {
+  color: #f85c5c;
+  font-weight: bold;
+}
+.tb {
+  background-color: #c99fa3;
+  color: #43200b;
+  text-align: center;
+  padding: 20px;
+}
+
+.box-jodoh {
+  background: #e0f0ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+}
+.btn-pink {
+  background-color: #ff6699;
+  border: none;
+  color: white;
+  height: 35px;
+  width: 144px;
+}
+
+.btn-pink:hover {
+  background-color: #ff3366;
+}
+
+.isi img {
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+}
