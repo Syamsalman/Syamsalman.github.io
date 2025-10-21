@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokyoWork Tecno Developer</title>
+    <meta
+      name="description"
+      content="Jasa pembuatan website sederhana, rapi, dan terpercaya. Konsultasi cepat via WhatsApp."
+    />
+
+    <!-- Bootstrap 5 CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --brand: #0b63d6;
+        --bg: #ffffff;
+        --muted: #6b7280;
+      }
+      body {
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: var(--bg);
+        color: var(--brand);
+        padding-top: 72px;
+      }
+      .navbar {
+        background: #fff;
+        box-shadow: 0 6px 18px rgba(11, 30, 70, 0.06);
+      }
+      .nav-link {
+        color: var(--brand) !important;
+      }
+      .btn-brand {
+        background: var(--brand);
+        color: #fff;
+        border-radius: 0.6rem;
+      }
+      .intro-card {
+        background: linear-gradient(90deg, #f7fbff, #ffffff);
+        border: 1px solid rgba(11, 99, 214, 0.04);
+      }
+      .avatar {
+        width: 120px;
+        height: 120px;
+        display: block;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #eaf4ff;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .svc-card {
+        border: 1px solid rgba(11, 99, 214, 0.06);
+        border-radius: 0.6rem;
+      }
+      footer {
+        color: var(--muted);
+      }
+
+      /* Ensure hero and cards adapt nicely on very small screens */
+      @media (max-width: 420px) {
+        .avatar {
+          width: 84px;
+          height: 84px;
+        }
+        .btn-brand {
+          padding-left: 0.8rem;
+          padding-right: 0.8rem;
+        }
+        .display-6 {
+          font-size: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid px-3 px-md-5">
+        <a class="navbar-brand fw-bold" href="#">TokyoWork Developer</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+          aria-controls="mainNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">Portofolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">Tentang</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a
+                class="btn btn-brand px-3 py-2"
+                href="https://wa.me/6285221710616?text=Halo%20TokyoWork,%20saya%20ingin%20konsultasi"
+                >Konsultasi</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="container px-3 px-md-5 mt-4">
+      <section class="row align-items-center">
+        <div class="col-lg-7">
+          <h1 class="display-6 fw-bold">
+            Jasa Pembuatan Website Cepat, Terpercaya
+          </h1>
+          <p class="text-muted">
+            TokyoWork membantu bisnis Anda punya website rapih, responsif, dan
+            mudah dikelola. Konsultasikan terlebih dahulu akan kami sesuaikan
+            dengan kebutuhan.
+          </p>
+          <div class="mt-3 d-flex gap-2 flex-wrap">
+            <a
+              class="btn btn-brand"
+              href="https://wa.me/6285221710616?text=Halo%20TokyoWork,%20saya%20ingin%20konsultasi"
+              >Konsultasi via WhatsApp</a
+            >
+            <a class="btn btn-outline-primary" href="#portfolio"
+              >Lihat Portofolio</a
+            >
+          </div>
+        </div>
+        <div class="col-lg-5 mt-4 mt-lg-0">
+          <div class="card intro-card p-3 shadow-sm h-100">
+            <div class="d-flex gap-3 align-items-center">
+              <div class="avatar flex-shrink-0">
+                <img
+                  src="img/avatar.png"
+                  alt="Avatar kartun"
+                  class="img-fluid"
+                />
+              </div>
+              <div>
+                <h6 class="mb-2">TokyoWork Tecno Developer</h6>
+                <p class="mb-2 text-muted small">
+                  Tim developer yang serius dan dapat dipercaya. Kami kerjakan
+                  dari desain hingga deploy, dan pastikan website Anda aman
+                  serta mudah dikelola.
+                </p>
+                <a
+                  class="btn btn-sm btn-brand"
+                  href="https://wa.me/6285221710616?text=Halo%20TokyoWork,%20saya%20ingin%20konsultasi"
+                  >Mulai Konsultasi</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="mt-5">
+        <h3>Layanan Utama</h3>
+        <div class="row row-cols-1 row-cols-md-2 g-3 mt-3">
+          <div class="col">
+            <div class="p-3 svc-card h-100">
+              <h5>Company Profile</h5>
+              <p class="text-muted small">
+                Website profil perusahaan yang profesional dan rapih.
+              </p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3 svc-card h-100">
+              <h5>E-commerce</h5>
+              <p class="text-muted small">
+                Toko online lengkap dengan sistem produk, pembayaran, dan
+                pengiriman.
+              </p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3 svc-card h-100">
+              <h5>Landing Page</h5>
+              <p class="text-muted small">
+                Halaman cepat untuk promosi produk dan konversi iklan.
+              </p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3 svc-card h-100">
+              <h5>Maintenance</h5>
+              <p class="text-muted small">
+                Update, backup, dan perbaikan berkala agar website aman.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio -->
+      <section id="portfolio" class="mt-5">
+        <h3>Portofolio</h3>
+        <p class="text-muted small">TokyoWork Tecno Developer</p>
+        <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/aspalhotmixindonesia3.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 1"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Project Aspal Hotmix Indonesia</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/karomahaspalhotmix.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 2"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Project Karomah Aspal Hotmix</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/fotografer.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 3"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Project Fotografer</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/maintance.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 3"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Maintance</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/web3.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 3"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Web 3D</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/script.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 3"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Scripts Custom</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="img/undangan.jpg"
+                class="card-img-top img-fluid"
+                alt="Project 3"
+              />
+              <div class="card-body">
+                <h6 class="card-title mb-1">Web Undangan</h6>
+                <p class="small text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About & Contact -->
+      <section id="about" class="mt-5">
+        <h3>Tentang Kami</h3>
+        <p class="text-muted">
+          TokyoWork Tecno Developer adalah tim pengembang web yang mengutamakan
+          kualitas, keamanan, dan kerja sama. Kami percaya komunikasi yang baik
+          dan proses kerja terstruktur menghasilkan produk yang dapat
+          diandalkan.
+        </p>
+      </section>
+
+      <section id="contact" class="mt-4 mb-5">
+        <h3>Kontak</h3>
+        <p class="text-muted">
+          Langsung chat kami via WhatsApp untuk konsultasi cepat. Jelaskan
+          singkat kebutuhan Anda, jenis website, target, dan anggaran.
+        </p>
+        <a
+          class="btn btn-brand"
+          href="https://wa.me/6285221710616?text=Halo%20TokyoWork,%20saya%20ingin%20konsultasi"
+          >Konsultasi via WhatsApp</a
+        >
+      </section>
+    </main>
+
+    <footer class="py-4">
+      <div class="container text-center">
+        <small>© TokyoWork — Tecno Developer</small>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
