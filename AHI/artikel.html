@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aspal Hotmix Indonesia — {{ post.title }}</title>
+    <meta name="description" content="{{ post.description }}" />
+    <meta
+      name="keywords"
+      content="aspal hotmix, pengaspalan, aspal, jasa pengaspalan, Aspal Hotmix Indonesia"
+    />
+    <meta name="author" content="Aspal Hotmix Indonesia" />
+    <link rel="canonical" href="{{ site.url }}{{ post.path }}" />
+
+    <!-- Open Graph / Social -> useful for share previews -->
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="{{ post.title }} - Aspal Hotmix Indonesia"
+    />
+    <meta property="og:description" content="{{ post.description }}" />
+    <meta property="og:url" content="{{ site.url }}{{ post.path }}" />
+    <meta property="og:image" content="{{ site.url }}{{ post.image }}" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ post.title }}" />
+    <meta name="twitter:description" content="{{ post.description }}" />
+    <meta name="twitter:image" content="{{ site.url }}{{ post.image }}" />
+
+    <!-- Fav icon -->
+    <link rel="icon" href="/assets/logo.png" type="image/png" />
+
+    <!-- Minimal styles (you can replace with Bootstrap or Tailwind) -->
+    <style>
+      :root {
+        --accent: #1f262a;
+        --accent-2: #f2a900;
+        --muted: #666;
+      }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        line-height: 1.6;
+        color: #222;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
+      .container {
+        max-width: 900px;
+        margin: 32px auto;
+        padding: 0 16px;
+      }
+      header.site {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 8px;
+        background: var(--accent);
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 700;
+      }
+      nav.breadcrumb {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      article.post h1 {
+        font-size: 28px;
+        margin: 8px 0;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+      .hero {
+        width: 100%;
+        height: 360px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 18px;
+      }
+      .content {
+        font-size: 16px;
+        gap: 16px;
+      }
+      .content p {
+        margin: 12px 0;
+      }
+      aside.cta {
+        border-left: 4px solid var(--accent-2);
+        padding: 12px;
+        margin: 18px 0;
+        background: #fff8ec;
+      }
+      footer.site {
+        margin: 48px 0 24px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      @media (max-width: 600px) {
+        .hero {
+          height: 200px;
+        }
+      }
+    </style>
+
+    <!-- Article structured data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "{{ site.url }}{{ post.path }}"
+        },
+        "headline": "{{ post.title }}",
+        "description": "{{ post.description }}",
+        "image": ["{{ site.url }}{{ post.image }}"],
+        "author": { "@type": "Person", "name": "{{ post.author }}" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aspal Hotmix Indonesia",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "{{ site.url }}/assets/logo.png"
+          }
+        },
+        "datePublished": "{{ post.datePublished }}",
+        "dateModified": "{{ post.dateModified }}"
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="site">
+        <div class="logo">AHI</div>
+        <div>
+          <div style="font-weight: 700">Aspal Hotmix Indonesia</div>
+          <div style="font-size: 13px; color: var(--muted)">
+            Jasa Pengaspalan • Hotmix • Perbaikan Jalan
+          </div>
+        </div>
+      </header>
+
+      <nav class="breadcrumb">
+        <a href="/">Beranda</a> › <a href="/artikel/">Artikel</a> ›
+        <span aria-current="page">{{ post.title }}</span>
+      </nav>
+
+      <article class="post">
+        <header>
+          <h1>{{ post.title }}</h1>
+          <div class="meta">
+            Dipost oleh <strong>{{ post.author }}</strong> •
+            <time datetime="{{ post.datePublished }}"
+              >{{ post.datePublished_readable }}</time
+            >
+            • <span>{{ post.read_time }} menit dibaca</span>
+          </div>
+          <img src="{{ post.image }}" alt="{{ post.image_alt }}" class="hero" />
+        </header>
+
+        <section class="content">
+          <!-- struktur konten: intro, subheading, list, CTA -->
+          <p>{{ post.intro_paragraph }}</p>
+
+          <h2>Kenapa memilih hotmix untuk jalan Anda?</h2>
+          <p>{{ post.section_why }}</p>
+
+          <h3>Proses pengerjaan</h3>
+          <ol>
+            <li>Persiapan lahan dan pembersihan</li>
+            <li>Penghamparan lapisan hotmix</li>
+            <li>Perataan dan pemadatan</li>
+            <li>Finishing & quality control</li>
+          </ol>
+
+          <h3>Harga & estimasi</h3>
+          <p>{{ post.section_price }}</p>
+
+          <aside class="cta">
+            <strong>Butuh pengaspalan sekarang?</strong>
+            <p>
+              Hubungi: <a href="tel:085221710616">085221710616</a> • Email:
+              <a href="mailto:info@aspalhotmixindonesia.my.id"
+                >info@aspalhotmixindonesia.my.id</a
+              >
+            </p>
+          </aside>
+
+          <h3>FAQ singkat</h3>
+          <details>
+            <summary>Apa itu hotmix?</summary>
+            <p>
+              Hotmix adalah campuran agregat dan aspal panas yang digunakan
+              untuk pengaspalan jalan.
+            </p>
+          </details>
+        </section>
+
+        <!-- Social / share links (simple) -->
+        <div style="margin-top: 18px">
+          <span style="font-weight: 600">Bagikan:</span>
+          <a
+            href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ post.path }}"
+            target="_blank"
+            rel="noopener"
+            >Facebook</a
+          >
+          •
+          <a
+            href="https://twitter.com/intent/tweet?url={{ site.url }}{{ post.path }}&text={{ post.title }}"
+            target="_blank"
+            rel="noopener"
+            >Twitter</a
+          >
+        </div>
+      </article>
+
+      <footer class="site">
+        &copy; {{ site.year }} Aspal Hotmix Indonesia •
+        <a href="/kontak.html">Kontak</a> • <a href="/tentang.html">Tentang</a>
+      </footer>
+    </div>
+
+    <!-- Minimal JS: insert reading time & simple enhancements (optional) -->
+    <script>
+      // elemen time untuk format tanggal; situs statis bisa isi langsung
+      // read_time di client, contoh sederhana:
+      (function () {
+        try {
+          var content = document.querySelector(".content");
+          if (content) {
+            var words = content.innerText.split(/\s+/).length;
+            var minutes = Math.max(1, Math.round(words / 200));
+            // replace placeholder jika ada
+            var readNodes = document.querySelectorAll(".meta");
+            readNodes.forEach(function (n) {
+              n.innerHTML = n.innerHTML.replace(
+                /{{ post.read_time }} menit dibaca/,
+                minutes + " menit dibaca"
+              );
+            });
+          }
+        } catch (e) {
+          console.warn(e);
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<!-- ---------------------------------------------------------- -->
+<!-- file siap pakai: /artikel/harga-aspal-hotmix-2025.html -->
+<!--  file baru di folder /artikel/ -->
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Harga Aspal Hotmix 2025 — Aspal Hotmix Indonesia</title>
+    <meta
+      name="description"
+      content="Panduan lengkap estimasi harga aspal hotmix tahun 2025 untuk proyek jalan, parkiran, dan area perumahan. Cakupan harga per m2 dan faktor yang memengaruhi biaya."
+    />
+    <meta
+      name="keywords"
+      content="harga aspal hotmix 2025, harga hotmix per m2, biaya pengaspalan"
+    />
+    <meta name="author" content="Tim Aspal Hotmix Indonesia" />
+    <link
+      rel="canonical"
+      href="https://aspalhotmixindonesia.my.id/artikel/harga-aspal-hotmix-2025.html"
+    />
+
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Harga Aspal Hotmix 2025 — Aspal Hotmix Indonesia"
+    />
+    <meta
+      property="og:description"
+      content="Estimasi harga aspal hotmix tahun 2025, termasuk faktor biaya, contoh perhitungan, dan tips menekan anggaran proyek."
+    />
+    <meta
+      property="og:url"
+      content="https://aspalhotmixindonesia.my.id/artikel/harga-aspal-hotmix-2025.html"
+    />
+    <meta property="og:image" content="/assets/aspal-hotmix-2025.jpg" />
+
+    <link rel="icon" href="/assets/logo.png" type="image/png" />
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+        margin: 0;
+        padding: 24px;
+        color: #222;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 26px;
+      }
+      .meta {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      img.hero {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      .cta {
+        background: #fff9e6;
+        border-left: 4px solid #f2a900;
+        padding: 12px;
+        margin: 18px 0;
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://aspalhotmixindonesia.my.id/artikel/harga-aspal-hotmix-2025.html"
+        },
+        "headline": "Harga Aspal Hotmix 2025 — Estimasi & Contoh Perhitungan",
+        "description": "Estimasi harga aspal hotmix tahun 2025, termasuk faktor biaya, contoh perhitungan, dan tips menekan anggaran proyek.",
+        "image": [
+          "https://aspalhotmixindonesia.my.id/assets/aspal-hotmix-2025.jpg"
+        ],
+        "author": { "@type": "Person", "name": "Tim Aspal Hotmix Indonesia" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aspal Hotmix Indonesia",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://aspalhotmixindonesia.my.id/assets/logo.png"
+          }
+        },
+        "datePublished": "2025-10-22",
+        "dateModified": "2025-10-22"
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+          "
+        >
+          <div
+            style="
+              width: 56px;
+              height: 56px;
+              background: #1f262a;
+              color: #fff;
+              border-radius: 8px;
+              display: grid;
+              place-items: center;
+              font-weight: 700;
+            "
+          >
+            AHI
+          </div>
+          <div>
+            <div style="font-weight: 700">Aspal Hotmix Indonesia</div>
+            <div style="color: #666; font-size: 13px">
+              Harga & Estimasi • 22 Oktober 2025
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <article>
+        <h1>Harga Aspal Hotmix 2025 — Estimasi & Contoh Perhitungan</h1>
+        <div class="meta">
+          Dipost oleh <strong>Tim Aspal Hotmix Indonesia</strong> • 22 Oktober
+          2025 • 5 menit dibaca
+        </div>
+        <img
+          src="/assets/aspal-hotmix-2025.jpg"
+          alt="Pekerjaan pengaspalan hotmix"
+          class="hero"
+        />
+
+        <section>
+          <p>
+            Pada tahun 2025, harga aspal hotmix dipengaruhi oleh beberapa
+            faktor: harga bahan baku, lokasi proyek, ketebalan lapisan, serta
+            ongkos angkut. Berikut adalah estimasi harga rata-rata per meter
+            persegi untuk wilayah Jawa Barat.
+          </p>
+
+          <h2>Estimasi Harga Hotmix (per m<sup>2</sup>)</h2>
+          <ul>
+            <li>
+              <strong>Hotmix Lapis 3 (Finishing):</strong> Rp 140.000 - Rp
+              160.000 / m<sup>2</sup>
+            </li>
+            <li>
+              <strong>Hotmix Lapis 2 (Struktur):</strong> Rp 120.000 - Rp
+              140.000 / m<sup>2</sup>
+            </li>
+            <li>
+              <strong>Hotmix Lapis 1 (Base):</strong> Rp 95.000 - Rp 120.000 /
+              m<sup>2</sup>
+            </li>
+          </ul>
+
+          <h3>Contoh Perhitungan</h3>
+          <p>
+            Misal proyek parkiran 200 m<sup>2</sup> menggunakan lapis finishing
+            (140.000/m<sup>2</sup>):
+          </p>
+          <p>
+            <strong>Total material & pengerjaan:</strong> 200 × 140.000 = Rp
+            28.000.000
+          </p>
+
+          <div class="cta">
+            <strong>Butuh penawaran resmi?</strong>
+            <p>
+              Hubungi kami: <a href="tel:085221710616">085221710616</a> • Email:
+              <a href="mailto:info@aspalhotmixindonesia.my.id"
+                >info@aspalhotmixindonesia.my.id</a
+              >
+            </p>
+          </div>
+
+          <h3>Faktor yang Mempengaruhi Harga</h3>
+          <ol>
+            <li>Jarak angkut material dari pabrik</li>
+            <li>Kondisi akses lokasi (truk bisa masuk atau tidak)</li>
+            <li>Ketebalan lapisan dan jenis agregat</li>
+          </ol>
+
+          <h3>Tips Menghemat Biaya</h3>
+          <p>
+            Gabungkan pesanan antar lokasi dekat, siapkan akses jalan yang baik,
+            dan diskusikan spesifikasi lapisan supaya tidak berlebihan dalam
+            desain struktur.
+          </p>
+
+          <h3>Penutup</h3>
+          <p>
+            Estimasi di atas bersifat indikatif — untuk harga pasti kami
+            sarankan permintaan survey lokasi. Tim Aspal Hotmix Indonesia siap
+            cek lokasi dan kirim RAB (Rencana Anggaran Biaya).
+          </p>
+        </section>
+
+        <div style="margin-top: 18px">
+          Bagikan: <a href="#">Facebook</a> • <a href="#">WhatsApp</a>
+        </div>
+      </article>
+
+      <footer style="margin-top: 36px; color: #666; font-size: 14px">
+        &copy; 2025 Aspal Hotmix Indonesia • <a href="/kontak.html">Kontak</a>
+      </footer>
+    </div>
+  </body>
+</html>

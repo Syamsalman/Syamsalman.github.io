@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Form Pemesanan</title>
+    <style>
+      /* style sederhana, ganti sesuai kebutuhan */
+      body {
+        font-family: Arial, sans-serif;
+        padding: 16px;
+        max-width: 900px;
+        margin: auto;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        box-sizing: border-box;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+      }
+      .col {
+        flex: 1;
+      }
+      .btn {
+        padding: 10px 14px;
+        margin-top: 12px;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: #0b6;
+        border: none;
+        color: #fff;
+      }
+      .btn-ghost {
+        background: #eee;
+        border: 1px solid #ccc;
+      }
+      #status {
+        margin-top: 12px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Form Pembelian Jasa Kontruksi</h2>
+
+    <label>Nama Pribadi / PT</label>
+    <input type="text" id="nama" placeholder="Contoh: PT. Contoh Jaya" />
+
+    <label>Alamat</label>
+    <input type="text" id="alamat" placeholder="Alamat lengkap" />
+
+    <label>Gmail</label>
+    <input type="email" id="gmail" placeholder="email@contoh.com" />
+
+    <label>Jenis Kontruksi</label>
+    <select id="jenis">
+      <option value="">-- Pilih --</option>
+      <option value="hotmix">Jasa Aspal Hotmix</option>
+      <option value="paving">Paving Blok</option>
+      <option value="cor">Cor Beton Riggid</option>
+    </select>
+
+    <label>Item</label>
+    <select id="itemId">
+      <option value="">-- Pilih item --</option>
+      <!-- Anda bisa isi dinamis bila ingin -->
+      <option
+        value="HM1"
+        data-name="Lapis aspal hotmix gelaran 2 cm kerusakan minor"
+        data-price="70000"
+      >
+        HM1 - Lapis aspal ... (Rp 70.000/m²)
+      </option>
+      <option
+        value="HM2"
+        data-name="Lapis aspal hotmix leveling 50%"
+        data-price="90000"
+      >
+        HM2 - Lapis aspal ... (Rp 90.000/m²)
+      </option>
+      <!-- tambahkan item lain sesuai daftar PRICE_LIST Anda -->
+    </select>
+
+    <div class="row">
+      <div class="col">
+        <label>Panjang (m)</label>
+        <input type="number" id="panjang" step="0.01" min="0" value="0" />
+      </div>
+      <div class="col">
+        <label>Lebar (m)</label>
+        <input type="number" id="lebar" step="0.01" min="0" value="0" />
+      </div>
+      <div class="col">
+        <label>Luas (m²)</label>
+        <input type="number" id="luas" readonly value="0" />
+      </div>
+    </div>
+
+    <label>Harga per m²</label>
+    <input type="number" id="harga" readonly value="0" />
+
+    <label>Total</label>
+    <input type="number" id="total" readonly value="0" />
+
+    <div>
+      <button class="btn btn-primary" id="btnSubmit">Kirim</button>
+      <button class="btn btn-ghost" id="btnReset">Reset</button>
+    </div>
+
+    <div id="status"></div>
+
+    <script>
+      // kalkulasi luas + price
+      const panjangEl = document.getElementById("panjang");
+      const lebarEl = document.getElementById("lebar");
+      const luasEl = document.getElementById("luas");
+      const itemEl = document.getElementById("itemId");
+      const hargaEl = document.getElementById("harga");
+      const totalEl = document.getElementById("total");
+      const statusEl = document.getElementById("status");
+
+      function calc() {
+        const p = Number(panjangEl.value) || 0;
+        const l = Number(lebarEl.value) || 0;
+        const luas = Math.round((p * l + Number.EPSILON) * 100) / 100;
+        luasEl.value = luas;
+        // ambil price dari option terpilih
+        const opt = itemEl.selectedOptions[0];
+        const price = opt ? Number(opt.dataset.price || 0) : 0;
+        hargaEl.value = price;
+        totalEl.value = Math.round(luas * price);
+      }
+
+      panjangEl.addEventListener("input", calc);
+      lebarEl.addEventListener("input", calc);
+      itemEl.addEventListener("change", calc);
+
+      document
+        .getElementById("btnReset")
+        .addEventListener("click", function () {
+          document.getElementById("nama").value = "";
+          document.getElementById("alamat").value = "";
+          document.getElementById("gmail").value = "";
+          document.getElementById("jenis").value = "";
+          itemEl.value = "";
+          panjangEl.value = 0;
+          lebarEl.value = 0;
+          calc();
+          statusEl.textContent = "";
+        });
+
+      document
+        .getElementById("btnSubmit")
+        .addEventListener("click", function () {
+          statusEl.textContent = "Mengirim...";
+          const nama = document.getElementById("nama").value || "-";
+          const alamat = document.getElementById("alamat").value || "-";
+          const gmail = document.getElementById("gmail").value || "-";
+          const jenis = document.getElementById("jenis").value || "-";
+          const itemOption = itemEl.selectedOptions[0];
+          const itemId = itemOption ? itemOption.value : "";
+          const itemName = itemOption ? itemOption.dataset.name || "" : "";
+          const panjang = Number(panjangEl.value) || 0;
+          const lebar = Number(lebarEl.value) || 0;
+          const luas = Number(luasEl.value) || 0;
+          const harga_per_m2 = Number(hargaEl.value) || 0;
+          const total = Number(totalEl.value) || 0;
+
+          const payload = {
+            nama,
+            alamat,
+            gmail,
+            jenis,
+            itemId,
+            itemName,
+            panjang,
+            lebar,
+            luas,
+            harga_per_m2,
+            total,
+            note: "Dikirim dari Web (Apps Script)",
+          };
+
+          // panggil server-side function (tanpa CORS issues)
+          google.script.run
+            .withSuccessHandler(function (resp) {
+              if (resp && resp.success) {
+                statusEl.textContent = "Berhasil tersimpan.";
+                // kalau mau, bisa auto-download PDF atau redirect, dsb.
+              } else {
+                statusEl.textContent =
+                  "Gagal: " + (resp && resp.error ? resp.error : "Unknown");
+              }
+            })
+            .withFailureHandler(function (err) {
+              statusEl.textContent = "Gagal menghubungi server: " + err;
+            })
+            .submitOrder(payload);
+        });
+
+      // inisialisasi kalkulasi
+      calc();
+    </script>
+  </body>
+</html>
