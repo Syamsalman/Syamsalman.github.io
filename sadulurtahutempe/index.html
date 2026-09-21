@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadulur Tahu Tempe - Segar, Alami & Berkualitas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#16a34a',
+                            600: '#15803d',
+                            700: '#166534',
+                            900: '#14532d',
+                        },
+                        soy: {
+                            50: '#fdfbf7',
+                            100: '#f7f2e8',
+                            400: '#e0c996',
+                            500: '#d4b46a',
+                            600: '#b8923f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-md shadow-brand-500/20">
+                    S
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-slate-900">Sadulur</h1>
+                    <p class="text-xs text-brand-600 font-semibold tracking-wide">TAHU & TEMPE</p>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+                <a href="#beranda" class="hover:text-brand-600 transition-colors">Beranda</a>
+                <a href="#produk" class="hover:text-brand-600 transition-colors">Harga & Produk</a>
+                <a href="#keunggulan" class="hover:text-brand-600 transition-colors">Keunggulan</a>
+                <a href="#pesan" class="hover:text-brand-600 transition-colors">Pesan & PO</a>
+            </nav>
+
+            <a href="#pesan" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-brand-600/20 transition-all flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Pesan Sekarang
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative bg-gradient-to-b from-brand-50/60 to-transparent pt-12 pb-20 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-leaf"></i> 100% Kedelai Pilihan & Higienis
+                </div>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                    Olahan Tahu & Tempe Segar <span class="text-brand-600">Langsung Dari Produsen</span>
+                </h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    Nikmati kelezatan Tahu dan Tempe asli buatan UMKM **Sadulur**. Diproses secara bersih, tanpa bahan pengawet, dan selalu diproduksi baru setiap hari untuk Anda.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#pesan" class="bg-brand-600 hover:bg-brand-700 text-white px-7 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-brand-600/30 transition-all">
+                        <i class="fa-solid fa-basket-shopping mr-2"></i> Buat Pesanan
+                    </a>
+                    <a href="#produk" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-7 py-3.5 rounded-xl font-bold text-base shadow-sm transition-all">
+                        Lihat Produk
+                    </a>
+                </div>
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/60">
+                    <div>
+                        <p class="text-2xl font-extrabold text-slate-900">100%</p>
+                        <p class="text-xs text-slate-500 font-medium">Kedelai Asli</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-extrabold text-slate-900">Fresh</p>
+                        <p class="text-xs text-slate-500 font-medium">Buatan Setiap Hari</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-extrabold text-slate-900">PO</p>
+                        <p class="text-xs text-slate-500 font-medium">Bisa Pesan Jadwal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image Banner -->
+            <div class="relative">
+                <div class="absolute -inset-4 bg-brand-500/10 rounded-3xl blur-2xl -z-10"></div>
+                <div class="bg-white p-3 rounded-3xl shadow-xl border border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" 
+                         alt="Tahu dan Tempe Sadulur" 
+                         class="w-full h-80 md:h-[400px] object-cover rounded-2xl">
+                    <div class="p-4 flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-slate-900">Kedelai Quality Grade A</p>
+                            <p class="text-xs text-slate-500">Gurih, Padat, dan Higienis</p>
+                        </div>
+                        <span class="bg-soy-100 text-soy-600 font-bold px-3 py-1 rounded-lg text-xs">
+                            Khas Sadulur
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produk & Harga Section -->
+    <section id="produk" class="py-16 bg-white border-y border-slate-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-2">Pilihan Utama</h2>
+                <p class="text-3xl font-extrabold text-slate-900">Daftar Produk & Harga</p>
+                <p class="text-slate-600 mt-2">Dapatkan kualitas tahu dan tempe terbaik dengan harga terjangkau untuk kebutuhan harian atau usaha Anda.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card Tempe -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:shadow-lg transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden rounded-xl mb-5 h-48 bg-amber-100">
+                            <img src="https://images.unsplash.com/photo-1584270354949-c26b0d5b4a0c?auto=format&fit=crop&w=600&q=80" 
+                                 alt="Tempe Murni 1 Kg" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Best Seller
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Tempe Murni (1 Kg)</h3>
+                        <p class="text-xs text-slate-500 mt-1">Padat, kedelai melimpah, dan tidak cepat asam.</p>
+                        <div class="my-4 pt-3 border-t border-slate-200/60">
+                            <span class="text-2xl font-extrabold text-brand-600">Rp 15.000</span>
+                            <span class="text-xs text-slate-500">/ kg</span>
+                        </div>
+                    </div>
+                    <button onclick="pilihProduk('tempe')" class="w-full bg-white hover:bg-brand-50 border border-brand-600 text-brand-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Pilih ke Form Pesan
+                    </button>
+                </div>
+
+                <!-- Card Tahu -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:shadow-lg transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden rounded-xl mb-5 h-48 bg-amber-100">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" 
+                                 alt="Tahu 1 Papan" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Tahu Segar (1 Papan)</h3>
+                        <p class="text-xs text-slate-500 mt-1">Lembut di dalam, tidak mudah hancur saat dimasak.</p>
+                        <div class="my-4 pt-3 border-t border-slate-200/60">
+                            <span class="text-2xl font-extrabold text-brand-600">Rp 40.000</span>
+                            <span class="text-xs text-slate-500">/ papan</span>
+                        </div>
+                    </div>
+                    <button onclick="pilihProduk('tahu')" class="w-full bg-white hover:bg-brand-50 border border-brand-600 text-brand-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Pilih ke Form Pesan
+                    </button>
+                </div>
+
+                <!-- Card Combo -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:shadow-lg transition-all flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                    <div>
+                        <div class="relative overflow-hidden rounded-xl mb-5 h-48 bg-amber-100">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" 
+                                 alt="Paket Hemat Combo" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Paket Hemat
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Paket Hemat Combo</h3>
+                        <p class="text-xs text-slate-500 mt-1">1 Papan Tahu + 1 Kg Tempe segar pilihan.</p>
+                        <div class="my-4 pt-3 border-t border-slate-200/60">
+                            <span class="text-2xl font-extrabold text-brand-600">Rp 55.000</span>
+                            <span class="text-xs text-slate-500">/ paket</span>
+                        </div>
+                    </div>
+                    <button onclick="pilihProduk('combo')" class="w-full bg-white hover:bg-brand-50 border border-brand-600 text-brand-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Pilih ke Form Pesan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan Section -->
+    <section id="keunggulan" class="py-16 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-2">Mengapa Memilih Kami?</h2>
+                <p class="text-3xl font-extrabold text-slate-900">Keunggulan Sadulur</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-slate-900 mb-2">Bahan Alami 100%</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">Menggunakan kedelai murni tanpa campuran obat kimia atau pemutih buatan.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-slate-900 mb-2">Pre-Order (PO) Fleksibel</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">Bisa pesan untuk acara hajatan, catering, atau persediaan mingguan secara terjadwal.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-slate-900 mb-2">Pengiriman Langsung</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">Dikirim langsung dari tempat produksi sehingga kondisi produk tetap hangat & segar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Pemesanan & PO Section -->
+    <section id="pesan" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 md:p-10 text-white shadow-2xl">
+                <div class="text-center mb-8">
+                    <span class="bg-brand-500/20 text-brand-400 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">
+                        Formulir Pemesanan
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold mt-2">Pesan Tahu & Tempe Sadulur</h2>
+                    <p class="text-slate-400 text-sm mt-1">Isi detail di bawah ini untuk pemesanan instant atau Pre-Order (PO).</p>
+                </div>
+
+                <form id="orderForm" onsubmit="handleOrder(event)" class="space-y-6">
+                    
+                    <!-- Pilihan Jenis Pesanan -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tipe Pesanan</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="orderType" value="Ready Stock" checked onchange="togglePoDate(false)" class="peer sr-only">
+                                <div class="p-3 text-center bg-slate-800 border border-slate-700 rounded-xl peer-checked:border-brand-500 peer-checked:bg-brand-500/10 peer-checked:text-brand-400 font-medium text-sm transition-all">
+                                    <i class="fa-solid fa-bolt mr-1"></i> Ready Stock (Hari Ini)
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="orderType" value="Pre-Order (PO)" onchange="togglePoDate(true)" class="peer sr-only">
+                                <div class="p-3 text-center bg-slate-800 border border-slate-700 rounded-xl peer-checked:border-brand-500 peer-checked:bg-brand-500/10 peer-checked:text-brand-400 font-medium text-sm transition-all">
+                                    <i class="fa-solid fa-calendar-days mr-1"></i> Pre-Order (PO)
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Input Tanggal PO (Hidden by default) -->
+                    <div id="poDateContainer" class="hidden">
+                        <label class="block text-sm font-semibold mb-1 text-amber-400">Pilih Tanggal Pengiriman PO *</label>
+                        <input type="date" id="poDate" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500">
+                    </div>
+
+                    <!-- Hitung Produk -->
+                    <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700 space-y-4">
+                        <label class="block text-sm font-semibold text-slate-200">Jumlah Pesanan</label>
+                        
+                        <!-- Item Tempe -->
+                        <div class="flex items-center justify-between gap-4">
+                            <div>
+                                <p class="font-bold text-sm">Tempe Murni (1 Kg)</p>
+                                <p class="text-xs text-slate-400">Rp 15.000 / kg</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button type="button" onclick="updateQty('qtyTempe', -1)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 font-bold flex items-center justify-center">-</button>
+                                <span id="qtyTempe" class="font-bold w-6 text-center">0</span>
+                                <button type="button" onclick="updateQty('qtyTempe', 1)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 font-bold flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Item Tahu -->
+                        <div class="flex items-center justify-between gap-4 pt-3 border-t border-slate-700">
+                            <div>
+                                <p class="font-bold text-sm">Tahu Segar (1 Papan)</p>
+                                <p class="text-xs text-slate-400">Rp 40.000 / papan</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button type="button" onclick="updateQty('qtyTahu', -1)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 font-bold flex items-center justify-center">-</button>
+                                <span id="qtyTahu" class="font-bold w-6 text-center">0</span>
+                                <button type="button" onclick="updateQty('qtyTahu', 1)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 font-bold flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ringkasan Total -->
+                    <div class="flex justify-between items-center py-2 px-1">
+                        <span class="text-sm font-semibold text-slate-400">Total Perkiraan:</span>
+                        <span id="totalPrice" class="text-2xl font-extrabold text-brand-400">Rp 0</span>
+                    </div>
+
+                    <!-- Data Pemesan -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">Nama Pemesan *</label>
+                            <input type="text" id="buyerName" required placeholder="Contoh: Ibu Rina" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">Alamat Lengkap Pengiriman *</label>
+                            <textarea id="buyerAddress" required rows="2" placeholder="Nama Jalan, Nomor Rumah, RT/RW, Kecamatan" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">Catatan Tambahan (Opsional)</label>
+                            <input type="text" id="buyerNotes" placeholder="Contoh: Tolong potong tempe jadi 2 bagian" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
+                        </div>
+                    </div>
+
+                    <!-- Tombol Kirim WhatsApp -->
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 text-base">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        Kirim Pesanan via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/62895364405439?text=Halo%20Sadulur%20Tahu%20Tempe,%20saya%20ingin%20bertanya%20mengenai%20produk." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:bg-emerald-600 transition-all z-50 text-2xl">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 mt-auto border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold">S</div>
+                    <span class="font-bold text-white text-lg">Sadulur Tahu Tempe</span>
+                </div>
+                <p class="text-sm text-slate-400">Produsen Tahu dan Tempe olahan segar berkualitas tinggi. Mengutamakan kebersihan dan rasa autentik kedelai.</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-white mb-3 text-sm">Jam Operasional</h5>
+                <p class="text-sm">Senin - Minggu: 05.00 - 17.00 WIB</p>
+                <p class="text-sm text-slate-500 mt-1">Pemesanan PO dibuka 24 jam</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-white mb-3 text-sm">Kontak Kami</h5>
+                <p class="text-sm"><i class="fa-solid fa-phone mr-2"></i> +62 895-3644-05439</p>
+                <p class="text-sm mt-1"><i class="fa-solid fa-location-dot mr-2"></i> DUSUN SUDAHANTEN RT 006 RW 005 TANJUNGSARI - SUKAHAJI</p>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 pt-8 mt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+            &copy; 2026 Sadulur Tahu Tempe. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Logic JavaScript -->
+    <script>
+        const PRICE_TEMPE = 15000;
+        const PRICE_TAHU = 40000;
+
+        let qtyTempe = 0;
+        let qtyTahu = 0;
+
+        function updateQty(id, change) {
+            if (id === 'qtyTempe') {
+                qtyTempe = Math.max(0, qtyTempe + change);
+                document.getElementById('qtyTempe').innerText = qtyTempe;
+            } else if (id === 'qtyTahu') {
+                qtyTahu = Math.max(0, qtyTahu + change);
+                document.getElementById('qtyTahu').innerText = qtyTahu;
+            }
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const total = (qtyTempe * PRICE_TEMPE) + (qtyTahu * PRICE_TAHU);
+            document.getElementById('totalPrice').innerText = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        function togglePoDate(show) {
+            const container = document.getElementById('poDateContainer');
+            if (show) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        function pilihProduk(tipe) {
+            if (tipe === 'tempe') {
+                qtyTempe += 1;
+                document.getElementById('qtyTempe').innerText = qtyTempe;
+            } else if (tipe === 'tahu') {
+                qtyTahu += 1;
+                document.getElementById('qtyTahu').innerText = qtyTahu;
+            } else if (tipe === 'combo') {
+                qtyTempe += 1;
+                qtyTahu += 1;
+                document.getElementById('qtyTempe').innerText = qtyTempe;
+                document.getElementById('qtyTahu').innerText = qtyTahu;
+            }
+            calculateTotal();
+            
+            // Scroll otomatis ke form pesanan
+            document.getElementById('pesan').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleOrder(e) {
+            e.preventDefault();
+
+            if (qtyTempe === 0 && qtyTahu === 0) {
+                alert('Silakan pilih minimal 1 produk (Tempe atau Tahu).');
+                return;
+            }
+
+            const orderType = document.querySelector('input[name="orderType"]:checked').value;
+            const poDate = document.getElementById('poDate').value;
+            const name = document.getElementById('buyerName').value;
+            const address = document.getElementById('buyerAddress').value;
+            const notes = document.getElementById('buyerNotes').value || '-';
+            const total = (qtyTempe * PRICE_TEMPE) + (qtyTahu * PRICE_TAHU);
+
+            if (orderType === 'Pre-Order (PO)' && !poDate) {
+                alert('Silakan pilih tanggal pengiriman Pre-Order (PO).');
+                return;
+            }
+
+            // Susun Pesan WhatsApp
+            let message = `Halo *Sadulur Tahu Tempe*, saya mau pesan:\n\n`;
+            message += `📌 *Tipe Pesanan:* ${orderType}\n`;
+            if (orderType === 'Pre-Order (PO)') {
+                message += `📅 *Tanggal Kirim PO:* ${poDate}\n`;
+            }
+            message += `------------------------------------\n`;
+            if (qtyTempe > 0) message += `• Tempe (1 Kg) x${qtyTempe} : Rp ${(qtyTempe * PRICE_TEMPE).toLocaleString('id-ID')}\n`;
+            if (qtyTahu > 0) message += `• Tahu (1 Papan) x${qtyTahu} : Rp ${(qtyTahu * PRICE_TAHU).toLocaleString('id-ID')}\n`;
+            message += `------------------------------------\n`;
+            message += `💰 *Total Harga:* Rp ${total.toLocaleString('id-ID')}\n\n`;
+            message += `👤 *Nama:* ${name}\n`;
+            message += `🏠 *Alamat:* ${address}\n`;
+            message += `📝 *Catatan:* ${notes}\n\n`;
+            message += `Mohon diproses ya, terima kasih!`;
+
+            // Nomor WhatsApp Sadulur Tahu Tempe
+            const phoneNumber = "62895364405439"; 
+            const encodedUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(encodedUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
