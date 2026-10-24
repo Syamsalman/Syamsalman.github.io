@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday Farida Yahya Maulani</title>
+  <title>Happy Birthday My Love</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden; /* Mencegah scroll horizontal, namun membiarkan scroll vertikal */
+      overflow-y: auto;  /* Memungkinkan scroll ke bawah */
       background: radial-gradient(circle at top, #ffdde8, #ffe9f2, #ffd1dc, #17001f);
+      background-attachment: fixed; /* Agar background gradient tidak terpotong saat di-scroll */
     }
     .font-love { font-family: 'Pacifico', cursive; }
 
@@ -110,12 +112,13 @@
     }
 
     .balloon {
-      position: absolute;
+      position: fixed; /* Mengubah ke fixed agar balloon tetap aman saat halaman di-scroll */
       width: 60px;
       height: 78px;
       border-radius: 50% 50% 45% 45%;
       animation: balloonFloat 4s ease-in-out infinite;
       z-index: 0;
+      pointer-events: none;
     }
     .balloon::after {
       content: '';
@@ -208,13 +211,13 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center px-4 text-black relative">
+<body class="min-h-screen flex items-center justify-center px-4 py-8 text-black relative">
   <div class="balloon bg-pink-400 left-8 top-20"></div>
   <div class="balloon bg-purple-400 right-10 top-28" style="animation-delay:1s"></div>
   <div class="balloon bg-yellow-300 left-1/4 bottom-16" style="animation-delay:2s"></div>
   <div class="balloon bg-red-400 right-1/4 bottom-20" style="animation-delay:.5s"></div>
 
-  <main class="relative z-10 w-full max-w-3xl">
+  <main class="relative z-10 w-full max-w-3xl my-auto">
     <div class="glass rounded-[2rem] p-6 sm:p-10 text-center min-h-[560px] flex items-center justify-center">
       <section class="step active w-full" data-step="0">
         <p class="uppercase tracking-[.35em] text-sm text-black mb-4">A tiny surprise for you</p>
@@ -233,8 +236,8 @@
       </section>
 
       <section class="step w-full" data-step="2">
-        <h2 class="font-love text-4xl sm:text-6xl mb-7 text-transform: uppercase;">A Gift For You</h2>
-        <p class="mb-10 text-black/90 ">Tap the gift box gently.</p>
+        <h2 class="font-love text-4xl sm:text-6xl mb-7 uppercase">A Gift For You</h2>
+        <p class="mb-10 text-black/90">Tap the gift box gently.</p>
         <div class="gift-box" onclick="openGift(this)">
           <div class="gift-lid"></div>
         </div>
@@ -242,7 +245,6 @@
       </section>
 
       <section class="step w-full" data-step="3">
-        
         <div class="cake mb-8">
           <div class="flame" id="flame"></div>
           <div class="candle"></div>
@@ -258,12 +260,12 @@
         <h2 class="font-love text-5xl sm:text-5xl mb-6">Happy Birthday Farida Yahya Maulani 🎂</h2>
         <div class="max-w-2xl mx-auto text-left bg-white/20 rounded-3xl p-6 border border-white/25">
           <p class="text-lg leading-8 text-black/95">
-           May Allah bless you with a long life filled with goodness, strengthen your faith, increase your sustenance, forgive your sins, and guide you to always walk on the right path. 
+            May Allah bless you with a long life filled with goodness, strengthen your faith, increase your sustenance, forgive your sins, and guide you to always walk on the right path. 
           </p>
           <p class="text-lg leading-8 text-black/95 mt-4">
             May Allah protect you from every hardship, grant your sincere wishes, and make you among those who are always grateful for His blessings. May He bless every step of your journey and make your life meaningful in this world and successful in the Hereafter. Aamiin Ya Rabbal Alamin. 🤲❤️
           </p>
-          <p>by.XN</p>
+          <p class="mt-4 font-semibold">by.XN</p>
         </div>
         <button onclick="restartWish()" class="mt-8 bg-white text-pink-600 px-8 py-4 rounded-full font-bold shadow-xl hover:scale-105 active:scale-95 transition">Replay Magic ✨</button>
       </section>
@@ -317,8 +319,8 @@
     function moveHeart() {
       const maxX = heartGame.clientWidth - 70;
       const maxY = heartGame.clientHeight - 70;
-      catchHeart.style.left = Math.random() * maxX + 'px';
-      catchHeart.style.top = Math.random() * maxY + 'px';
+      catchHeart.style.left = Math.max(0, Math.random() * maxX) + 'px';
+      catchHeart.style.top = Math.max(0, Math.random() * maxY) + 'px';
     }
 
     catchHeart.addEventListener('click', () => {
