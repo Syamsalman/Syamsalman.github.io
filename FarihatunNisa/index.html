@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farihatun Nisa | Ahli Gizi Profesional — Portofolio 3D RGB</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js & Font Awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts: Space Grotesk, Orbitron & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            cyber: ['"Orbitron"', 'sans-serif'],
+          },
+          colors: {
+            pitch: '#050508',
+            cardDark: 'rgba(13, 14, 22, 0.72)',
+            neonCyan: '#00f5d4',
+            neonMagenta: '#ff007f',
+            neonLime: '#39ff14',
+            neonViolet: '#9b5de5',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --rgb-1: #00f5d4;
+      --rgb-2: #ff007f;
+      --rgb-3: #9b5de5;
+      --rgb-4: #39ff14;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #050508;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* 3D Canvas Background */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: auto;
+    }
+
+    /* Ambient Cyber Vignette */
+    .cyber-vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(0, 245, 212, 0.08), transparent 42%),
+        radial-gradient(circle at 85% 75%, rgba(255, 0, 127, 0.08), transparent 45%),
+        radial-gradient(circle at 50% 50%, transparent 45%, rgba(5, 5, 8, 0.85) 100%);
+    }
+
+    .content-layer {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* RGB Gradient Text & Animation */
+    .rgb-text {
+      background: linear-gradient(90deg, #00f5d4, #39ff14, #ff007f, #9b5de5, #00f5d4);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rgbFlow 7s ease infinite;
+    }
+
+    @keyframes rgbFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism Card with Animated RGB Border */
+    .rgb-card {
+      position: relative;
+      background: rgba(12, 13, 21, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      transform-style: preserve-3d;
+    }
+
+    .rgb-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 1.3rem;
+      padding: 1.5px;
+      background: linear-gradient(135deg, rgba(0, 245, 212, 0.55), rgba(155, 93, 229, 0.35), rgba(255, 0, 127, 0.55), rgba(57, 255, 20, 0.45));
+      background-size: 300% 300%;
+      animation: rgbFlow 8s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.42;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .rgb-card:hover::before {
+      opacity: 1;
+    }
+
+    .rgb-card:hover {
+      box-shadow:
+        0 18px 45px -15px rgba(0, 245, 212, 0.22),
+        0 10px 30px -15px rgba(255, 0, 127, 0.22);
+    }
+
+    /* Glowing RGB Button */
+    .btn-rgb {
+      position: relative;
+      background: linear-gradient(90deg, #00f5d4, #9b5de5, #ff007f);
+      background-size: 200% 200%;
+      animation: rgbFlow 5s ease infinite;
+      color: #050508;
+      font-weight: 700;
+      border-radius: 0.9rem;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-rgb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(0, 245, 212, 0.5), 0 0 35px rgba(255, 0, 127, 0.35);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(0, 245, 212, 0.35);
+      backdrop-filter: blur(10px);
+      border-radius: 0.9rem;
+      transition: all 0.25s ease;
+    }
+
+    .btn-glass:hover {
+      background: rgba(0, 245, 212, 0.12);
+      border-color: #00f5d4;
+      box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Floating Navbar */
+    .glass-nav {
+      background: rgba(8, 9, 15, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.65);
+    }
+
+    /* Section Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050508;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #00f5d4, #ff007f);
+      border-radius: 999px;
+    }
+
+    /* Form Inputs */
+    .cyber-input {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      border-radius: 0.75rem;
+      transition: all 0.25s ease;
+    }
+    .cyber-input:focus {
+      outline: none;
+      border-color: #00f5d4;
+      box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.15);
+      background: rgba(0, 245, 212, 0.04);
+    }
+    .cyber-input option {
+      background: #0c0d15;
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-neonCyan selection:text-pitch">
+
+  <!-- Three.js Interactive 3D Molecular & DNA Canvas -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="cyber-vignette"></div>
+
+  <!-- Main Content Layer -->
+  <div class="content-layer">
+
+    <!-- Floating Glass Navbar -->
+    <header class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6">
+      <nav class="max-w-6xl mx-auto glass-nav rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+        <!-- Brand Logo -->
+        <a href="#beranda" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neonCyan via-neonViolet to-neonMagenta p-[1.5px] shadow-lg shadow-neonCyan/20 group-hover:scale-105 transition-transform">
+            <div class="w-full h-full bg-pitch rounded-[10px] flex items-center justify-center">
+              <span class="font-cyber font-extrabold text-base rgb-text">FN.</span>
+            </div>
+          </div>
+          <div class="hidden sm:block">
+            <p class="font-display font-bold text-sm tracking-wide text-white leading-none">Farihatun Nisa</p>
+            <p class="text-[11px] text-neonCyan tracking-widest uppercase mt-0.5">Ahli Gizi</p>
+          </div>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+          <a href="#beranda" class="hover:text-neonCyan transition-colors">Beranda</a>
+          <a href="#tentang" class="hover:text-neonCyan transition-colors">Tentang</a>
+          <a href="#pendidikan" class="hover:text-neonCyan transition-colors">Pendidikan</a>
+          <a href="#layanan" class="hover:text-neonCyan transition-colors">Keahlian & Layanan</a>
+          <a href="#kalkulator" class="hover:text-neonLime transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-neonLime animate-ping"></span>
+            Kalkulator Gizi
+          </a>
+          <a href="#portofolio" class="hover:text-neonCyan transition-colors">Studi Kasus</a>
+        </div>
+
+        <!-- CTA & Mobile Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="#kontak" class="btn-rgb px-4 py-2 text-xs sm:text-sm tracking-wide shadow-md">
+            Konsultasi
+          </a>
+          <button id="mobile-menu-btn" aria-label="Buka Menu" class="lg:hidden p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 hover:text-neonCyan">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu" class="hidden lg:hidden max-w-6xl mx-auto mt-2 glass-nav rounded-2xl p-4 flex-col gap-3 text-sm font-medium">
+        <a href="#beranda" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Beranda</a>
+        <a href="#tentang" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Tentang & Domisili</a>
+        <a href="#pendidikan" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Riwayat Pendidikan</a>
+        <a href="#layanan" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Keahlian & Layanan</a>
+        <a href="#kalkulator" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-neonLime font-semibold">Kalkulator IMT & Kalori</a>
+        <a href="#portofolio" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Studi Kasus & Program</a>
+        <a href="#kontak" class="mobile-link px-3 py-2 rounded-lg hover:bg-white/5 text-neonCyan font-semibold">Kontak & Kolaborasi</a>
+      </div>
+    </header>
+
+    <!-- 3D RGB Lighting Controller Floating Widget -->
+    <div class="fixed bottom-5 right-5 z-40">
+      <div class="rgb-card px-3.5 py-2.5 flex items-center gap-2.5 shadow-2xl">
+        <span class="text-[11px] font-cyber uppercase tracking-wider text-slate-400 hidden sm:inline">3D RGB:</span>
+        <button data-theme="cyber" title="Cyber Spectrum (Cyan & Magenta)" class="rgb-mode-btn w-6 h-6 rounded-full bg-gradient-to-tr from-neonCyan to-neonMagenta ring-2 ring-white scale-110 transition-transform"></button>
+        <button data-theme="bioglow" title="Emerald Bio-Glow (Lime & Cyan)" class="rgb-mode-btn w-6 h-6 rounded-full bg-gradient-to-tr from-neonLime to-neonCyan opacity-75 hover:opacity-100 transition-all"></button>
+        <button data-theme="violet" title="Quantum Violet (Violet & Pink)" class="rgb-mode-btn w-6 h-6 rounded-full bg-gradient-to-tr from-neonViolet to-neonMagenta opacity-75 hover:opacity-100 transition-all"></button>
+        <div class="h-4 w-[1px] bg-white/15 mx-0.5"></div>
+        <button id="toggle-spin-btn" title="Percepat / Normal Rotasi 3D" class="text-xs px-2 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-neonCyan transition-colors">
+          <i class="fa-solid fa-atom"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="beranda" class="min-h-screen flex items-center pt-28 pb-16 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.04] border border-neonCyan/30 backdrop-blur-md">
+            <span class="w-2.5 h-2.5 rounded-full bg-neonCyan shadow-[0_0_12px_#00f5d4] animate-pulse"></span>
+            <span class="text-xs sm:text-sm font-semibold tracking-wider uppercase text-neonCyan">
+              Ahli Gizi Profesional • Clinical & Community Nutritionist
+            </span>
+          </div>
+
+          <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.08]">
+            Halo, Saya <br />
+            <span class="rgb-text">Farihatun Nisa</span>
+          </h1>
+
+          <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Mengintegrasikan ilmu gizi berbasis bukti ilmiah (<span class="text-neonCyan font-medium">Evidence-Based Nutrition</span>), terapi diet klinis, dan edukasi kesehatan masyarakat untuk menciptakan kualitas hidup yang optimal dan berkelanjutan.
+          </p>
+
+          <!-- Quick Location & Alma Mater Pill -->
+          <div class="flex flex-wrap gap-3 text-xs sm:text-sm text-slate-300">
+            <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.03] border border-white/10">
+              <i class="fa-solid fa-location-dot text-neonMagenta"></i>
+              <span>Desa Cisetu, Kec. Rajagaluh, Kab. Majalengka</span>
+            </div>
+            <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.03] border border-white/10">
+              <i class="fa-solid fa-graduation-cap text-neonLime"></i>
+              <span>Alumni STIKES KHAS KEMPEK (2020–2026)</span>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#kontak" class="btn-rgb px-7 py-3.5 text-sm sm:text-base flex items-center gap-2.5">
+              <i class="fa-solid fa-stethoscope"></i>
+              Konsultasi Gizi
+            </a>
+            <a href="#portofolio" class="btn-glass px-7 py-3.5 text-sm sm:text-base text-white font-semibold flex items-center gap-2.5">
+              <span>Jelajahi Portofolio</span>
+              <i class="fa-solid fa-arrow-down text-neonCyan"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Interactive 3D Profile Holo-Card -->
+        <div class="lg:col-span-5">
+          <div class="rgb-card tilt-card p-6 sm:p-8 relative overflow-hidden">
+            <!-- Decorative RGB corner glow -->
+            <div class="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-neonCyan/20 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 w-44 h-44 rounded-full bg-neonMagenta/20 blur-3xl pointer-events-none"></div>
+
+            <div class="flex items-center justify-between mb-6">
+              <span class="px-3 py-1 rounded-lg bg-neonLime/10 border border-neonLime/30 text-neonLime text-xs font-cyber tracking-wider">
+                NUTRITION PROFILE
+              </span>
+              <span class="text-xs text-slate-400 font-mono">ID: FN-GIZI-2026</span>
+            </div>
+
+            <!-- Stylized Bio-Avatar Emblem -->
+            <div class="flex flex-col items-center text-center my-4">
+              <div class="relative w-28 h-28 rounded-3xl bg-gradient-to-tr from-neonCyan via-neonViolet to-neonMagenta p-[2px] shadow-[0_0_35px_rgba(0,245,212,0.3)] mb-5">
+                <div class="w-full h-full bg-pitch rounded-[22px] flex flex-col items-center justify-center relative overflow-hidden">
+                  <i class="fa-solid fa-dna text-3xl rgb-text mb-1"></i>
+                  <span class="font-cyber font-bold text-lg text-white tracking-widest">FN</span>
+                </div>
+              </div>
+
+              <h2 class="font-display font-bold text-2xl text-white">Farihatun Nisa</h2>
+              <p class="text-neonCyan text-sm font-medium mt-1">Sarjana Ilmu Gizi • Ahli Gizi</p>
+              <p class="text-xs text-slate-400 mt-1">Rajagaluh, Kab. Majalengka, Jawa Barat</p>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-3 gap-3 mt-6 pt-6 border-t border-white/10 text-center">
+              <div class="p-2.5 rounded-xl bg-white/[0.03]">
+                <p class="font-cyber font-bold text-lg text-neonCyan">6 Thn</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Studi Gizi</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/[0.03]">
+                <p class="font-cyber font-bold text-lg text-neonMagenta">100%</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Berbasis Riset</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/[0.03]">
+                <p class="font-cyber font-bold text-lg text-neonLime">4+</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Fokus Layanan</p>
+              </div>
+            </div>
+
+            <div class="mt-5 text-center">
+              <p class="text-[11px] text-slate-400">
+                <i class="fa-solid fa-computer-mouse text-neonCyan mr-1"></i>
+                Gerakkan kursor untuk memutar struktur molekul 3D di latar belakang
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANG SAYA & DOMISILI SECTION -->
+    <section id="tentang" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-cyber uppercase tracking-[0.25em] text-neonCyan">Profil & Dedikasi</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-2">
+            Tentang <span class="rgb-text">Farihatun Nisa</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-3">
+            Komitmen menghadirkan solusi gizi yang presisi, humanis, dan mudah diterapkan dalam kehidupan sehari-hari.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Narrative Bio Card -->
+          <div class="lg:col-span-7 rgb-card tilt-card p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-neonCyan/15 border border-neonCyan/40 flex items-center justify-center text-neonCyan">
+                  <i class="fa-solid fa-heart-pulse text-lg"></i>
+                </div>
+                <h3 class="font-display font-bold text-xl text-white">Filosofi & Pendekatan Keilmuan Gizi</h3>
+              </div>
+              <p class="text-slate-300 leading-relaxed text-sm sm:text-base mb-4">
+                Sebagai lulusan Ilmu Gizi dari <strong class="text-white">STIKES KHAS KEMPEK (2020–2026)</strong> dengan latar belakang pendidikan karakter yang kuat dari <strong class="text-white">MA Khas Kempek (2016–2019)</strong>, saya percaya bahwa nutrisi adalah fondasi utama kesehatan fisik, kecerdasan kognitif, dan kualitas hidup manusia.
+              </p>
+              <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                Saya mengkhususkan diri dalam penerapan <span class="text-neonCyan font-medium">Proses Asuhan Gizi Terstandar (PAGT)</span>, perencanaan diet klinis individual, edukasi pencegahan stunting di tingkat keluarga, serta pemanfaatan pangan lokal bergizi tinggi di wilayah Jawa Barat dan sekitarnya.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 pt-6 border-t border-white/10">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-neonLime mt-1"></i>
+                <div>
+                  <h4 class="font-semibold text-white text-sm">Evidence-Based Dietetics</h4>
+                  <p class="text-xs text-slate-400 mt-0.5">Rekomendasi berbasis pedoman gizi klinis terkini.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-neonMagenta mt-1"></i>
+                <div>
+                  <h4 class="font-semibold text-white text-sm">Edukasi Empatik & Praktis</h4>
+                  <p class="text-xs text-slate-400 mt-0.5">Pola makan disesuaikan budaya & kebutuhan klien.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Domicile & Identity Card -->
+          <div class="lg:col-span-5 rgb-card tilt-card p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-neonMagenta/15 border border-neonMagenta/40 flex items-center justify-center text-neonMagenta">
+                  <i class="fa-solid fa-map-location-dot text-lg"></i>
+                </div>
+                <h3 class="font-display font-bold text-xl text-white">Domisili & Identitas</h3>
+              </div>
+
+              <div class="space-y-4">
+                <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-neonCyan/40 transition-colors">
+                  <p class="text-xs uppercase tracking-wider text-slate-400">Nama Lengkap</p>
+                  <p class="font-display font-semibold text-white text-base mt-0.5">Farihatun Nisa</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-neonMagenta/40 transition-colors">
+                  <p class="text-xs uppercase tracking-wider text-slate-400">Alamat Lengkap</p>
+                  <p class="font-semibold text-white text-sm sm:text-base mt-1 leading-snug">
+                    Desa Cisetu, Kec. Rajagaluh, Kab. Majalengka, Jawa Barat
+                  </p>
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    <span class="px-2.5 py-1 rounded-md bg-neonCyan/10 text-neonCyan text-[11px] font-medium">Desa Cisetu</span>
+                    <span class="px-2.5 py-1 rounded-md bg-neonViolet/15 text-purple-300 text-[11px] font-medium">Kec. Rajagaluh</span>
+                    <span class="px-2.5 py-1 rounded-md bg-neonMagenta/10 text-neonMagenta text-[11px] font-medium">Kab. Majalengka</span>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-neonLime/40 transition-colors">
+                  <p class="text-xs uppercase tracking-wider text-slate-400">Bidang Spesialisasi</p>
+                  <p class="font-semibold text-neonLime text-sm mt-0.5">
+                    Gizi Klinis, Gizi Masyarakat & Manajemen Diet
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <a href="#kontak" class="mt-6 w-full py-3 rounded-xl bg-white/5 hover:bg-neonCyan/15 border border-white/15 hover:border-neonCyan text-center text-sm font-semibold text-white transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane text-neonCyan"></i>
+              Terhubung untuk Layanan & Kolaborasi
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINIMASA PENDIDIKAN SECTION -->
+    <section id="pendidikan" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-cyber uppercase tracking-[0.25em] text-neonMagenta">Rekam Jejak Akademik</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-2">
+            Riwayat <span class="rgb-text">Pendidikan</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-3">
+            Perjalanan akademik yang membentuk kompetensi ilmiah dan integritas profesional di bidang ilmu gizi.
+          </p>
+        </div>
+
+        <!-- Timeline Wrapper -->
+        <div class="relative space-y-8 before:content-[''] before:absolute before:left-5 sm:before:left-8 before:top-4 before:bottom-4 before:w-[2px] before:bg-gradient-to-b before:from-neonCyan before:via-neonViolet before:to-neonMagenta">
+
+          <!-- Item 1: STIKES KHAS KEMPEK (2020 - 2026) -->
+          <div class="relative pl-14 sm:pl-20">
+            <!-- Glowing Node -->
+            <div class="absolute left-2.5 sm:left-5.5 top-6 w-5 h-5 rounded-full bg-pitch border-2 border-neonCyan shadow-[0_0_16px_#00f5d4] z-10"></div>
+
+            <div class="rgb-card tilt-card p-6 sm:p-8">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <span class="px-4 py-1.5 rounded-full bg-neonCyan/15 border border-neonCyan/40 text-neonCyan font-cyber text-xs sm:text-sm font-bold tracking-wider">
+                  2020 – 2026
+                </span>
+                <span class="px-3 py-1 rounded-lg bg-neonLime/10 text-neonLime text-xs font-semibold">
+                  <i class="fa-solid fa-award mr-1"></i> Pendidikan Tinggi Ilmu Gizi
+                </span>
+              </div>
+
+              <h3 class="font-display font-bold text-2xl sm:text-3xl text-white">
+                STIKES KHAS KEMPEK
+              </h3>
+              <p class="text-neonCyan font-medium text-sm sm:text-base mt-1">
+                Program Studi Ilmu Gizi — Lulusan Tahun 2026
+              </p>
+
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mt-4">
+                Menempuh pendidikan tinggi kesehatan dengan pendalaman komprehensif pada <strong class="text-white">Gizi Klinik</strong>, <strong class="text-white">Gizi Masyarakat</strong>, <strong class="text-white">Manajemen Penyelenggaraan Makanan Institusi (Food Service)</strong>, serta penerapan <strong class="text-white">Asuhan Gizi Terstandar (PAGT/NCP)</strong> untuk berbagai kondisi patologis maupun preventif.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mt-5 pt-5 border-t border-white/10">
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Dietetika & Terapi Gizi</span>
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Penilaian Status Gizi</span>
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Gizi Ibu, Anak & Stunting</span>
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Keamanan & Mutu Pangan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: MA Khas Kempek (2016 - 2019) -->
+          <div class="relative pl-14 sm:pl-20">
+            <!-- Glowing Node -->
+            <div class="absolute left-2.5 sm:left-5.5 top-6 w-5 h-5 rounded-full bg-pitch border-2 border-neonMagenta shadow-[0_0_16px_#ff007f] z-10"></div>
+
+            <div class="rgb-card tilt-card p-6 sm:p-8">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <span class="px-4 py-1.5 rounded-full bg-neonMagenta/15 border border-neonMagenta/40 text-neonMagenta font-cyber text-xs sm:text-sm font-bold tracking-wider">
+                  2016 – 2019
+                </span>
+                <span class="px-3 py-1 rounded-lg bg-neonViolet/15 text-purple-300 text-xs font-semibold">
+                  <i class="fa-solid fa-book-open mr-1"></i> Pendidikan Menengah Atas
+                </span>
+              </div>
+
+              <h3 class="font-display font-bold text-2xl sm:text-3xl text-white">
+                MA Khas Kempek
+              </h3>
+              <p class="text-neonMagenta font-medium text-sm sm:text-base mt-1">
+                Madrasah Aliyah Khas Kempek — Lulusan Tahun 2019
+              </p>
+
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mt-4">
+                Membangun fondasi akademik yang kokoh, kedisiplinan tinggi, etika pengabdian masyarakat, serta pembentukan karakter berintegritas yang menjadi bekal utama dalam menapaki dunia pendidikan tinggi kesehatan dan pelayanan gizi profesional.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mt-5 pt-5 border-t border-white/10">
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Fondasi Sains & Biologi</span>
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Kepemimpinan & Karakter</span>
+                <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-slate-300 border border-white/10">Komunikasi Sosial</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- KEAHLIAN & LAYANAN GIZI SECTION -->
+    <section id="layanan" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-cyber uppercase tracking-[0.25em] text-neonLime">Kompetensi Profesional</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-2">
+            Keahlian & <span class="rgb-text">Layanan Gizi</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-3">
+            Layanan konsultasi dan intervensi gizi komprehensif untuk individu, keluarga, maupun institusi kesehatan.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Service 1 -->
+          <div class="rgb-card tilt-card p-7 group">
+            <div class="w-13 h-13 w-14 h-14 rounded-2xl bg-neonCyan/10 border border-neonCyan/40 flex items-center justify-center text-neonCyan text-2xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-notes-medical"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-2">Konseling & Terapi Gizi Klinis</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Penyusunan terapi diet medis terpersonalisasi untuk pengelolaan Diabetes Melitus, Hipertensi, Dislipidemia, Asam Urat, Gangguan Ginjal, dan sindrom metabolik berbasis Asuhan Gizi Terstandar.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs text-neonCyan">
+              <span class="px-2.5 py-1 rounded-md bg-neonCyan/10">Diet Diabetes</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonCyan/10">Diet DASH Hipertensi</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonCyan/10">Metabolik</span>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="rgb-card tilt-card p-7 group">
+            <div class="w-14 h-14 rounded-2xl bg-neonMagenta/10 border border-neonMagenta/40 flex items-center justify-center text-neonMagenta text-2xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-bowl-food"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-2">Perencanaan Menu & Meal Prep Sehat</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Perhitungan kebutuhan makronutrien dan mikronutrien harian untuk program manajemen berat badan ideal (penurunan atau penambahan massa tubuh), kebugaran, dan diet seimbang harian.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs text-neonMagenta">
+              <span class="px-2.5 py-1 rounded-md bg-neonMagenta/10">Weight Management</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonMagenta/10">Kalori Terukur</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonMagenta/10">Pangan Lokal</span>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="rgb-card tilt-card p-7 group">
+            <div class="w-14 h-14 rounded-2xl bg-neonLime/10 border border-neonLime/40 flex items-center justify-center text-neonLime text-2xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-children"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-2">Edukasi Gizi Masyarakat & Cegah Stunting</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Pendampingan gizi 1000 Hari Pertama Kehidupan (HPK), gizi ibu hamil & menyusui, penyusunan MP-ASI berkualitas, serta penyuluhan gizi seimbang berbasis komunitas desa.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs text-neonLime">
+              <span class="px-2.5 py-1 rounded-md bg-neonLime/10">1000 HPK</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonLime/10">Edukasi MP-ASI</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonLime/10">Posyandu & Desa</span>
+            </div>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="rgb-card tilt-card p-7 group">
+            <div class="w-14 h-14 rounded-2xl bg-neonViolet/15 border border-neonViolet/40 flex items-center justify-center text-purple-300 text-2xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-2">Analisis Status Gizi & Antropometri</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Skrining gizi komprehensif meliputi pengukuran antropometri (IMT, lingkar lengan atas, rasio pinggang-panggul), evaluasi biokimia, pemeriksaan fisik klinis, dan riwayat asupan makan (Dietary Recall).
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs text-purple-300">
+              <span class="px-2.5 py-1 rounded-md bg-neonViolet/15">Skrining ABCD</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonViolet/15">24-Hour Recall</span>
+              <span class="px-2.5 py-1 rounded-md bg-neonViolet/15">Monitoring Berkala</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE MINI KALKULATOR IMT & KALORI SECTION -->
+    <section id="kalkulator" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-cyber uppercase tracking-[0.25em] text-neonCyan">Simulasi Interaktif Ahli Gizi</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-2">
+            Kalkulator <span class="rgb-text">IMT & Kebutuhan Kalori</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-3">
+            Cek Indeks Massa Tubuh (standar Kemenkes RI) dan estimasi kebutuhan energi harian Anda secara instan.
+          </p>
+        </div>
+
+        <div class="rgb-card p-6 sm:p-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- Input Form -->
+            <form id="nutrition-calc-form" class="lg:col-span-7 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Jenis Kelamin</label>
+                  <select id="calc-gender" class="cyber-input w-full px-4 py-3 text-sm">
+                    <option value="female">Perempuan</option>
+                    <option value="male">Laki-laki</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Usia (Tahun)</label>
+                  <input type="number" id="calc-age" min="10" max="100" value="23" required class="cyber-input w-full px-4 py-3 text-sm" placeholder="Contoh: 23" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Berat Badan (kg)</label>
+                  <input type="number" id="calc-weight" min="20" max="250" step="0.1" value="54" required class="cyber-input w-full px-4 py-3 text-sm" placeholder="Contoh: 54" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Tinggi Badan (cm)</label>
+                  <input type="number" id="calc-height" min="100" max="230" step="0.1" value="160" required class="cyber-input w-full px-4 py-3 text-sm" placeholder="Contoh: 160" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Tingkat Aktivitas Harian</label>
+                <select id="calc-activity" class="cyber-input w-full px-4 py-3 text-sm">
+                  <option value="1.2">Sangat Ringan (Minim olahraga / kerja duduk)</option>
+                  <option value="1.375" selected>Ringan (Olahraga ringan 1–3 hari/minggu)</option>
+                  <option value="1.55">Sedang (Aktivitas & olahraga 3–5 hari/minggu)</option>
+                  <option value="1.725">Berat (Olahraga intens / aktivitas fisik tinggi)</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn-rgb w-full py-3.5 text-sm sm:text-base flex items-center justify-center gap-2 mt-2">
+                <i class="fa-solid fa-calculator"></i>
+                Hitung Status Gizi & Kalori Sekarang
+              </button>
+            </form>
+
+            <!-- Result Panel -->
+            <div class="lg:col-span-5 bg-black/50 border border-white/10 rounded-2xl p-6 space-y-5">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <span class="text-xs font-cyber uppercase tracking-wider text-slate-400">Hasil Analisis Gizi</span>
+                <span id="calc-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-neonLime/15 text-neonLime border border-neonLime/40">
+                  Berat Badan Normal
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <p class="text-xs text-slate-400">Skor IMT (BMI)</p>
+                  <p id="calc-bmi-val" class="font-cyber font-bold text-2xl sm:text-3xl text-neonCyan mt-1">21.1</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">kg/m²</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <p class="text-xs text-slate-400">Kebutuhan Energi</p>
+                  <p id="calc-tdee-val" class="font-cyber font-bold text-2xl sm:text-3xl text-neonMagenta mt-1">1.763</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">kkal / hari</p>
+                </div>
+              </div>
+
+              <!-- Makronutrien Bar -->
+              <div class="space-y-2">
+                <p class="text-xs font-semibold text-slate-300">Estimasi Distribusi Makronutrien Harian:</p>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div class="p-2 rounded-lg bg-neonCyan/10 border border-neonCyan/25">
+                    <span class="block text-slate-400 text-[10px]">Karbohidrat (55%)</span>
+                    <span id="macro-carb" class="font-bold text-neonCyan">242 g</span>
+                  </div>
+                  <div class="p-2 rounded-lg bg-neonMagenta/10 border border-neonMagenta/25">
+                    <span class="block text-slate-400 text-[10px]">Protein (15%)</span>
+                    <span id="macro-prot" class="font-bold text-neonMagenta">66 g</span>
+                  </div>
+                  <div class="p-2 rounded-lg bg-neonLime/10 border border-neonLime/25">
+                    <span class="block text-slate-400 text-[10px]">Lemak (30%)</span>
+                    <span id="macro-fat" class="font-bold text-neonLime">59 g</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-neonCyan/5 border border-neonCyan/20">
+                <p id="calc-advice" class="text-xs text-slate-300 leading-relaxed">
+                  <strong class="text-neonCyan">Saran Farihatun Nisa:</strong> Status gizi Anda tergolong normal ideal! Pertahankan pola makan Isi Piringku, cukupi konsumsi sayur, buah, protein hewani/nabati, serta air putih minimal 2 liter per hari.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTOFOLIO / STUDI KASUS SECTION -->
+    <section id="portofolio" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-cyber uppercase tracking-[0.25em] text-neonMagenta">Karya & Implementasi</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-2">
+            Studi Kasus & <span class="rgb-text">Program Gizi</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-3">
+            Klik pada masing-masing kartu program untuk melihat detail intervensi, metode, dan hasil evaluasi gizi.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Case Study 1 -->
+          <article data-case="0" class="case-card rgb-card tilt-card p-6 cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-full bg-neonCyan/15 text-neonCyan text-xs font-semibold">Gizi Masyarakat</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-slate-400 group-hover:text-neonCyan transition-colors"></i>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white group-hover:text-neonCyan transition-colors">
+                Gerakan Edukasi Gizi Seimbang Remaja & Pencegahan Anemia
+              </h3>
+              <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                Program skrining status gizi, edukasi konsumsi Tablet Tambah Darah (TTD), dan penyusunan menu kaya zat besi berbasis pangan lokal bagi remaja putri.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+              <span><i class="fa-solid fa-users text-neonCyan mr-1.5"></i> Komunitas & Sekolah</span>
+              <span class="text-neonCyan font-semibold">Lihat Detail →</span>
+            </div>
+          </article>
+
+          <!-- Case Study 2 -->
+          <article data-case="1" class="case-card rgb-card tilt-card p-6 cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-full bg-neonLime/15 text-neonLime text-xs font-semibold">1000 HPK & Stunting</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-slate-400 group-hover:text-neonLime transition-colors"></i>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white group-hover:text-neonLime transition-colors">
+                Pendampingan Gizi Keluarga & Demo Masak MP-ASI Bergizi
+              </h3>
+              <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                Intervensi gizi keluarga dengan balita berisiko gagal tumbuh melalui pemantauan kurva KMS, edukasi protein hewani harian, dan sanitasi pangan rumah tangga.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+              <span><i class="fa-solid fa-house-chimney-medical text-neonLime mr-1.5"></i> Desa & Posyandu</span>
+              <span class="text-neonLime font-semibold">Lihat Detail →</span>
+            </div>
+          </article>
+
+          <!-- Case Study 3 -->
+          <article data-case="2" class="case-card rgb-card tilt-card p-6 cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-full bg-neonMagenta/15 text-neonMagenta text-xs font-semibold">Dietetika Klinis</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-slate-400 group-hover:text-neonMagenta transition-colors"></i>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white group-hover:text-neonMagenta transition-colors">
+                Asuhan Gizi Terstandar Pasien Diabetes Melitus Tipe 2
+              </h3>
+              <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                Perancangan diet prinsip 3J (Jadwal, Jumlah, Jenis) dengan indeks glikemik terkontrol untuk menstabilkan kadar glukosa darah puasa dan HbA1c pasien.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+              <span><i class="fa-solid fa-hospital-user text-neonMagenta mr-1.5"></i> Gizi Klinik</span>
+              <span class="text-neonMagenta font-semibold">Lihat Detail →</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK & KOLABORASI SECTION -->
+    <section id="kontak" class="py-20 px-4 sm:px-6 reveal">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-cyber uppercase tracking-[0.25em] text-neonCyan">Mari Berdiskusi</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-2">
+            Kontak & <span class="rgb-text">Konsultasi Gizi</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-3">
+            Terbuka untuk konsultasi diet personal, edukasi kesehatan masyarakat, maupun peluang kerja sama profesional.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Contact Info Card -->
+          <div class="lg:col-span-5 rgb-card p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <h3 class="font-display font-bold text-2xl text-white mb-2">Informasi Kontak</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Silakan kirimkan pesan atau pertanyaan seputar konsultasi gizi, perencanaan menu, maupun kolaborasi program kesehatan.
+              </p>
+
+              <div class="space-y-4 mt-6">
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <div class="w-10 h-10 rounded-xl bg-neonCyan/15 text-neonCyan flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-user-doctor"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">Nama Ahli Gizi</p>
+                    <p class="font-semibold text-white text-sm sm:text-base">Farihatun Nisa</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <div class="w-10 h-10 rounded-xl bg-neonMagenta/15 text-neonMagenta flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">Alamat Domisili</p>
+                    <p class="font-semibold text-white text-sm leading-snug">
+                      Desa Cisetu, Kec. Rajagaluh, Kab. Majalengka, Jawa Barat
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <div class="w-10 h-10 rounded-xl bg-neonLime/15 text-neonLime flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">Latar Belakang Akademik</p>
+                    <p class="font-semibold text-white text-sm">STIKES KHAS KEMPEK (2020–2026)</p>
+                    <p class="text-xs text-slate-400">MA Khas Kempek (2016–2019)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button id="copy-address-btn" type="button" class="btn-glass w-full py-3 text-xs sm:text-sm font-semibold text-neonCyan flex items-center justify-center gap-2">
+              <i class="fa-regular fa-copy"></i>
+              Salin Alamat Lengkap
+            </button>
+          </div>
+
+          <!-- Interactive Message Form -->
+          <div class="lg:col-span-7 rgb-card p-6 sm:p-8">
+            <h3 class="font-display font-bold text-2xl text-white mb-6">Kirim Pesan Konsultasi</h3>
+
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Nama Anda</label>
+                  <input type="text" id="sender-name" required class="cyber-input w-full px-4 py-3 text-sm" placeholder="Masukkan nama lengkap" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Email / WhatsApp</label>
+                  <input type="text" id="sender-contact" required class="cyber-input w-full px-4 py-3 text-sm" placeholder="contoh@email.com / 08xx" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Topik Konsultasi / Kolaborasi</label>
+                <select id="sender-topic" class="cyber-input w-full px-4 py-3 text-sm">
+                  <option value="Konseling Diet & Terapi Gizi Klinis">Konseling Diet & Terapi Gizi Klinis</option>
+                  <option value="Perencanaan Menu & Berat Badan Ideal">Perencanaan Menu & Berat Badan Ideal</option>
+                  <option value="Edukasi Gizi Masyarakat / Posyandu">Edukasi Gizi Masyarakat / Posyandu</option>
+                  <option value="Kolaborasi Profesional / Rekrutmen">Kolaborasi Profesional / Rekrutmen</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Pesan Detail</label>
+                <textarea id="sender-message" rows="4" required class="cyber-input w-full px-4 py-3 text-sm" placeholder="Ceritakan kebutuhan gizi atau rencana kolaborasi Anda..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-rgb w-full py-3.5 text-sm sm:text-base flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i>
+                Kirim Pesan ke Farihatun Nisa
+              </button>
+            </form>
+
+            <!-- Custom Notification Banner -->
+            <div id="form-toast" class="hidden mt-5 p-4 rounded-xl bg-neonLime/10 border border-neonLime/40 text-neonLime text-sm flex items-start gap-3">
+              <i class="fa-solid fa-circle-check text-lg mt-0.5"></i>
+              <div>
+                <p class="font-bold">Pesan Berhasil Terkirim!</p>
+                <p id="form-toast-text" class="text-xs text-slate-200 mt-1"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-10 px-4 sm:px-6 mt-10 bg-black/60 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div>
+          <p class="font-display font-bold text-lg text-white">
+            <span class="rgb-text">Farihatun Nisa</span> — Ahli Gizi
+          </p>
+          <p class="text-xs text-slate-400 mt-1">
+            Desa Cisetu, Kec. Rajagaluh, Kab. Majalengka • Alumni MA Khas Kempek & STIKES KHAS KEMPEK
+          </p>
+        </div>
+        <p class="text-xs text-slate-500">
+          © 2026 Farihatun Nisa. Portofolio 3D Interaktif Ilmu Gizi.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- MODAL DETAIL STUDI KASUS -->
+  <div id="case-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="rgb-card max-w-xl w-full p-6 sm:p-8 relative animate-[fadeIn_0.25s_ease]">
+      <button id="close-modal-btn" aria-label="Tutup Modal" class="absolute top-5 right-5 w-9 h-9 rounded-xl bg-white/5 hover:bg-neonMagenta/20 text-slate-300 hover:text-neonMagenta flex items-center justify-center transition-colors">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <span id="modal-tag" class="px-3 py-1 rounded-full bg-neonCyan/15 text-neonCyan text-xs font-semibold">Kategori</span>
+      <h3 id="modal-title" class="font-display font-bold text-2xl text-white mt-3">Judul Program</h3>
+
+      <div class="space-y-4 mt-5 text-sm text-slate-300 leading-relaxed">
+        <div>
+          <h4 class="text-xs font-cyber uppercase tracking-wider text-neonCyan mb-1">Latar Belakang & Tujuan</h4>
+          <p id="modal-bg"></p>
+        </div>
+        <div>
+          <h4 class="text-xs font-cyber uppercase tracking-wider text-neonMagenta mb-1">Metode Intervensi Gizi</h4>
+          <p id="modal-method"></p>
+        </div>
+        <div class="p-4 rounded-xl bg-neonLime/10 border border-neonLime/30">
+          <h4 class="text-xs font-cyber uppercase tracking-wider text-neonLime mb-1">Dampak & Evaluasi</h4>
+          <p id="modal-result" class="text-white"></p>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-end">
+        <a href="#kontak" id="modal-consult-link" class="btn-rgb px-5 py-2.5 text-xs sm:text-sm">
+          Diskusikan Program Serupa
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: Three.js 3D Engine + Interactive Logic -->
+  <script>
+    // =========================================================================
+    // 1. THREE.JS 3D INTERACTIVE DNA / NUTRITIONAL MOLECULE & RGB PARTICLES
+    // =========================================================================
+    window.addEventListener('load', () => {
+      const canvas = document.getElementById('bg-canvas');
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x050508, 0.032);
+
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 0, 18);
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance'
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Color Palettes for RGB Lighting Modes
+      const rgbThemes = {
+        cyber: { c1: 0x00f5d4, c2: 0xff007f, c3: 0x9b5de5 },
+        bioglow: { c1: 0x39ff14, c2: 0x00f5d4, c3: 0x00bbf9 },
+        violet: { c1: 0x9b5de5, c2: 0xff007f, c3: 0x00f5d4 }
+      };
+      let currentTheme = rgbThemes.cyber;
+
+      // Dynamic Point Lights
+      const light1 = new THREE.PointLight(currentTheme.c1, 2.6, 45);
+      light1.position.set(8, 6, 10);
+      scene.add(light1);
+
+      const light2 = new THREE.PointLight(currentTheme.c2, 2.6, 45);
+      light2.position.set(-8, -6, 10);
+      scene.add(light2);
+
+      const light3 = new THREE.PointLight(currentTheme.c3, 2.0, 40);
+      light3.position.set(0, 10, -8);
+      scene.add(light3);
+
+      const ambientLight = new THREE.AmbientLight(0x161829, 1.5);
+      scene.add(ambientLight);
+
+      // Master Group for DNA & Molecular Rings
+      const bioGroup = new THREE.Group();
+      bioGroup.position.x = window.innerWidth > 1024 ? 4.2 : 0;
+      scene.add(bioGroup);
+
+      // Materials
+      const strandMatA = new THREE.MeshStandardMaterial({
+        color: currentTheme.c1,
+        emissive: currentTheme.c1,
+        emissiveIntensity: 0.75,
+        roughness: 0.2,
+        metalness: 0.8
+      });
+
+      const strandMatB = new THREE.MeshStandardMaterial({
+        color: currentTheme.c2,
+        emissive: currentTheme.c2,
+        emissiveIntensity: 0.75,
+        roughness: 0.2,
+        metalness: 0.8
+      });
+
+      const bondMat = new THREE.MeshBasicMaterial({
+        color: currentTheme.c3,
+        transparent: true,
+        opacity: 0.45
+      });
+
+      // Build 3D Double Helix DNA / Nutritional Bio-Polymer
+      const helixGroup = new THREE.Group();
+      const numPairs = 34;
+      const radius = 2.5;
+      const heightStep = 0.52;
+      const sphereGeo = new THREE.SphereGeometry(0.24, 18, 18);
+
+      for (let i = 0; i < numPairs; i++) {
+        const y = (i - numPairs / 2) * heightStep;
+        const angle = i * 0.36;
+
+        const x1 = Math.cos(angle) * radius;
+        const z1 = Math.sin(angle) * radius;
+        const x2 = Math.cos(angle + Math.PI) * radius;
+        const z2 = Math.sin(angle + Math.PI) * radius;
+
+        // Node A
+        const nodeA = new THREE.Mesh(sphereGeo, strandMatA);
+        nodeA.position.set(x1, y, z1);
+        helixGroup.add(nodeA);
+
+        // Node B
+        const nodeB = new THREE.Mesh(sphereGeo, strandMatB);
+        nodeB.position.set(x2, y, z2);
+        helixGroup.add(nodeB);
+
+        // Base Pair Connector Cylinder
+        const bondGeo = new THREE.CylinderGeometry(0.045, 0.045, radius * 2, 8);
+        const bond = new THREE.Mesh(bondGeo, bondMat);
+        bond.position.set(0, y, 0);
+        bond.rotation.z = Math.PI / 2;
+        bond.rotation.y = -angle;
+        helixGroup.add(bond);
+      }
+
+      helixGroup.rotation.z = 0.32;
+      bioGroup.add(helixGroup);
+
+      // Orbiting Molecular Gyroscope Rings
+      const ringGeo1 = new THREE.TorusGeometry(4.6, 0.035, 16, 100);
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: currentTheme.c1, transparent: true, opacity: 0.35 });
+      const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+      ring1.rotation.x = Math.PI / 3;
+      bioGroup.add(ring1);
+
+      const ringGeo2 = new THREE.TorusGeometry(5.5, 0.03, 16, 100);
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: currentTheme.c2, transparent: true, opacity: 0.28 });
+      const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+      ring2.rotation.y = Math.PI / 4;
+      bioGroup.add(ring2);
+
+      // Floating Micronutrient Atomic Particles
+      const particleCount = 420;
+      const particleGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const c1Obj = new THREE.Color(currentTheme.c1);
+      const c2Obj = new THREE.Color(currentTheme.c2);
+      const c3Obj = new THREE.Color(currentTheme.c3);
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 44;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 44;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 32;
+
+        const pick = i % 3 === 0 ? c1Obj : i % 3 === 1 ? c2Obj : c3Obj;
+        colors[i * 3] = pick.r;
+        colors[i * 3 + 1] = pick.g;
+        colors[i * 3 + 2] = pick.b;
+      }
+
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const particleMat = new THREE.PointsMaterial({
+        size: 0.14,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85
+      });
+
+      const particles = new THREE.Points(particleGeo, particleMat);
+      scene.add(particles);
+
+      // Mouse & Scroll Parallax State
+      let mouseX = 0;
+      let mouseY = 0;
+      let scrollY = window.scrollY;
+      let spinMultiplier = 1;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      window.addEventListener('scroll', () => {
+        scrollY = window.scrollY;
+      });
+
+      // Theme Switcher for 3D RGB Lights
+      document.querySelectorAll('.rgb-mode-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.rgb-mode-btn').forEach(b => {
+            b.classList.remove('ring-2', 'ring-white', 'scale-110');
+            b.classList.add('opacity-75');
+          });
+          btn.classList.add('ring-2', 'ring-white', 'scale-110');
+          btn.classList.remove('opacity-75');
+
+          const mode = btn.getAttribute('data-theme');
+          currentTheme = rgbThemes[mode] || rgbThemes.cyber;
+
+          light1.color.setHex(currentTheme.c1);
+          light2.color.setHex(currentTheme.c2);
+          light3.color.setHex(currentTheme.c3);
+
+          strandMatA.color.setHex(currentTheme.c1);
+          strandMatA.emissive.setHex(currentTheme.c1);
+          strandMatB.color.setHex(currentTheme.c2);
+          strandMatB.emissive.setHex(currentTheme.c2);
+          bondMat.color.setHex(currentTheme.c3);
+          ringMat1.color.setHex(currentTheme.c1);
+          ringMat2.color.setHex(currentTheme.c2);
+        });
+      });
+
+      // Toggle Spin Speed Button
+      document.getElementById('toggle-spin-btn').addEventListener('click', () => {
+        spinMultiplier = spinMultiplier === 1 ? 3.2 : 1;
+      });
+
+      // Responsive Resize Handler
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        bioGroup.position.x = window.innerWidth > 1024 ? 4.2 : 0;
+      });
+
+      // Main 3D Render Loop
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime();
+
+        // Smooth Helix Rotation + Scroll Influence
+        helixGroup.rotation.y = elapsed * 0.45 * spinMultiplier + scrollY * 0.0022;
+        helixGroup.position.y = Math.sin(elapsed * 0.9) * 0.35;
+
+        // Gyroscope Rings
+        ring1.rotation.z = elapsed * 0.35 * spinMultiplier;
+        ring1.rotation.y = Math.sin(elapsed * 0.5) * 0.4;
+        ring2.rotation.x = elapsed * 0.28 * spinMultiplier;
+        ring2.rotation.z = -elapsed * 0.2;
+
+        // Ambient Particles Drift
+        particles.rotation.y = elapsed * 0.04;
+        particles.rotation.x = elapsed * 0.02;
+
+        // Smooth Camera & BioGroup Mouse Follow
+        bioGroup.rotation.x += (mouseY * 0.28 - bioGroup.rotation.x) * 0.05;
+        bioGroup.rotation.y += (mouseX * 0.38 - bioGroup.rotation.y) * 0.05;
+
+        camera.position.x += (mouseX * 1.1 - camera.position.x) * 0.04;
+        camera.position.y += (mouseY * 0.8 - camera.position.y) * 0.04;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    });
+
+    // =========================================================================
+    // 2. 3D CARD TILT MICRO-INTERACTION
+    // =========================================================================
+    document.querySelectorAll('.tilt-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        if (window.innerWidth < 768) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -4.5;
+        const rotateY = ((x - centerX) / centerX) * 4.5;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+
+    // =========================================================================
+    // 3. SCROLL REVEAL & MOBILE MENU
+    // =========================================================================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+    document.querySelectorAll('.mobile-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+      });
+    });
+
+    // =========================================================================
+    // 4. KALKULATOR IMT (KEMENKES RI) & KEBUTUHAN KALORI HARIAN (MIFFLIN-ST JEOR)
+    // =========================================================================
+    const calcForm = document.getElementById('nutrition-calc-form');
+    calcForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const gender = document.getElementById('calc-gender').value;
+      const age = parseFloat(document.getElementById('calc-age').value);
+      const weight = parseFloat(document.getElementById('calc-weight').value);
+      const heightCm = parseFloat(document.getElementById('calc-height').value);
+      const activity = parseFloat(document.getElementById('calc-activity').value);
+
+      if (!age || !weight || !heightCm) return;
+
+      const heightM = heightCm / 100;
+      const bmi = weight / (heightM * heightM);
+
+      // BMR Mifflin-St Jeor
+      let bmr = (10 * weight) + (6.25 * heightCm) - (5 * age);
+      bmr += gender === 'male' ? 5 : -161;
+      const tdee = Math.round(bmr * activity);
+
+      // Makronutrien (55% Karbo, 15% Protein, 30% Lemak)
+      const carbG = Math.round((tdee * 0.55) / 4);
+      const protG = Math.round((tdee * 0.15) / 4);
+      const fatG = Math.round((tdee * 0.30) / 9);
+
+      // Klasifikasi IMT Kemenkes RI
+      let status = '';
+      let badgeClass = '';
+      let advice = '';
+
+      if (bmi < 18.5) {
+        status = 'Berat Badan Kurang';
+        badgeClass = 'bg-neonCyan/15 text-neonCyan border-neonCyan/40';
+        advice = 'Tingkatkan asupan energi padat gizi secara bertahap dengan porsi kecil tapi sering, perbanyak protein berkualitas (telur, ikan, ayam, tempe), serta latihan kekuatan ringan.';
+      } else if (bmi >= 18.5 && bmi <= 25.0) {
+        status = 'Berat Badan Normal';
+        badgeClass = 'bg-neonLime/15 text-neonLime border-neonLime/40';
+        advice = 'Status gizi Anda tergolong normal ideal! Pertahankan pola makan Isi Piringku, cukupi konsumsi sayur, buah, protein hewani/nabati, serta air putih minimal 2 liter per hari.';
+      } else if (bmi > 25.0 && bmi <= 27.0) {
+        status = 'Gemuk Ringan (Overweight)';
+        badgeClass = 'bg-yellow-400/15 text-yellow-300 border-yellow-400/40';
+        advice = 'Mulai terapkan defisit kalori ringan sekitar 300–500 kkal/hari, batasi minuman berpemanis dan gorengan, perbanyak serat sayur, serta rutin aktivitas aerobik 150 menit/minggu.';
+      } else {
+        status = 'Obesitas (Perlu Intervensi)';
+        badgeClass = 'bg-neonMagenta/15 text-neonMagenta border-neonMagenta/40';
+        advice = 'Disarankan melakukan pendampingan diet terstruktur bersama Ahli Gizi untuk manajemen penurunan berat badan yang aman, terukur, dan menjaga massa otot tetap optimal.';
+      }
+
+      document.getElementById('calc-bmi-val').textContent = bmi.toFixed(1);
+      document.getElementById('calc-tdee-val').textContent = tdee.toLocaleString('id-ID');
+      document.getElementById('macro-carb').textContent = `${carbG} g`;
+      document.getElementById('macro-prot').textContent = `${protG} g`;
+      document.getElementById('macro-fat').textContent = `${fatG} g`;
+
+      const badgeEl = document.getElementById('calc-badge');
+      badgeEl.textContent = status;
+      badgeEl.className = `px-3 py-1 rounded-full text-xs font-bold border ${badgeClass}`;
+
+      document.getElementById('calc-advice').innerHTML = `<strong class="text-neonCyan">Saran Farihatun Nisa:</strong> ${advice}`;
+    });
+
+    // =========================================================================
+    // 5. MODAL DETAIL STUDI KASUS GIZI
+    // =========================================================================
+    const caseData = [
+      {
+        tag: 'Gizi Masyarakat & Remaja',
+        title: 'Gerakan Edukasi Gizi Seimbang Remaja & Pencegahan Anemia',
+        bg: 'Remaja putri memiliki kerentanan tinggi terhadap anemia defisiensi besi yang berdampak pada konsentrasi belajar dan kesehatan masa depan sebagai calon ibu.',
+        method: 'Melakukan pengukuran antropometri (BB, TB, LiLA), edukasi interaktif pedoman Gizi Seimbang, kepatuhan konsumsi Tablet Tambah Darah (TTD), serta penyusunan resep camilan tinggi zat besi dan vitamin C.',
+        result: 'Peningkatan pemahaman gizi seimbang peserta sebesar 85% serta terbentuknya kebiasaan evaluasi menu harian yang lebih beragam dan kaya mikronutrien.'
+      },
+      {
+        tag: '1000 HPK & Pencegahan Stunting',
+        title: 'Pendampingan Gizi Keluarga & Demo Masak MP-ASI Bergizi',
+        bg: 'Pemenuhan gizi optimal pada periode 1000 Hari Pertama Kehidupan (HPK) merupakan kunci utama pencegahan stunting dan optimalisasi tumbuh kembang anak di tingkat desa.',
+        method: 'Pemantauan pertumbuhan berkala berbasis kurva KMS, konseling ASI eksklusif, serta demonstrasi pengolahan MP-ASI kaya protein hewani menggunakan bahan pangan lokal terjangkau di wilayah Majalengka.',
+        result: 'Keluarga sasaran mampu menyusun menu MP-ASI adekuat secara mandiri sesuai tahapan usia bayi dan balita dengan skor keragaman pangan (Dietary Diversity) yang meningkat.'
+      },
+      {
+        tag: 'Dietetika & Gizi Klinis',
+        title: 'Asuhan Gizi Terstandar Pasien Diabetes Melitus Tipe 2',
+        bg: 'Pasien dengan gangguan metabolik memerlukan pengaturan pola makan presisi untuk mencegah komplikasi mikrovaskular maupun makrovaskular jangka panjang.',
+        method: 'Penerapan langkah Proses Asuhan Gizi Terstandar (Pengkajian ABCD, Diagnosis Gizi PES, Intervensi Diet prinsip 3J: Jadwal, Jumlah, Jenis, serta Monitoring & Evaluasi berkala).',
+        result: 'Kepatuhan diet pasien meningkat signifikan disertai perbaikan profil glukosa darah sewaktu dan pola makan yang jauh lebih teratur tanpa rasa lapar berlebih.'
+      }
+    ];
+
+    const modal = document.getElementById('case-modal');
+    document.querySelectorAll('.case-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-case'), 10);
+        const item = caseData[idx];
+        document.getElementById('modal-tag').textContent = item.tag;
+        document.getElementById('modal-title').textContent = item.title;
+        document.getElementById('modal-bg').textContent = item.bg;
+        document.getElementById('modal-method').textContent = item.method;
+        document.getElementById('modal-result').textContent = item.result;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+    document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+    document.getElementById('modal-consult-link').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // =========================================================================
+    // 6. COPY ADDRESS & INTERACTIVE CONSULTATION FORM
+    // =========================================================================
+    document.getElementById('copy-address-btn').addEventListener('click', function () {
+      const addressText = 'Farihatun Nisa — Desa Cisetu, Kec. Rajagaluh, Kab. Majalengka, Jawa Barat';
+      const tempInput = document.createElement('textarea');
+      tempInput.value = addressText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const originalHTML = this.innerHTML;
+      this.innerHTML = '<i class="fa-solid fa-check text-neonLime"></i> Alamat Berhasil Disalin!';
+      setTimeout(() => {
+        this.innerHTML = originalHTML;
+      }, 2500);
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('sender-name').value.trim();
+      const topic = document.getElementById('sender-topic').value;
+      const toast = document.getElementById('form-toast');
+      const toastText = document.getElementById('form-toast-text');
+
+      toastText.textContent = `Terima kasih, ${name}. Permintaan Anda terkait "${topic}" telah dicatat untuk Farihatun Nisa (Ahli Gizi).`;
+      toast.classList.remove('hidden');
+      this.reset();
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 6500);
+    });
+  </script>
+</body>
+</html>
